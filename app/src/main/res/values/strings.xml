@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Swimspot</string>
+    <string name="app_name">Wild Swimming</string>
+    <string name="button_addSwimspot">Add Swimspot</string>
+    <string name="hint_swimspotName">Name</string>
+    <string name="hint_swimspotCounty">County </string>
+    <string name="hint_swimspotCategorey">Categorey </string>
+
 </resources>

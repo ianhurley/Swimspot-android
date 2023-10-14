@@ -4,5 +4,7 @@
     <string name="hint_swimspotName">Name</string>
     <string name="hint_swimspotCounty">County </string>
     <string name="hint_swimspotCategorey">Categorey </string>
+    <string name="menu_addSwimspot">Add</string>
+    <string name="menu_cancelSwimspot">Cancel</string>
 
 </resources>

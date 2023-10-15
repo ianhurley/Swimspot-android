@@ -6,5 +6,7 @@
     <string name="hint_swimspotCategorey">Categorey </string>
     <string name="menu_addSwimspot">Add</string>
     <string name="menu_cancelSwimspot">Cancel</string>
+    <string name="enter_swimspot_name"> Please enter a Swimspot Name </string>
+    <string name="save_swimspot"> Save Swimspot </string>
 
 </resources>

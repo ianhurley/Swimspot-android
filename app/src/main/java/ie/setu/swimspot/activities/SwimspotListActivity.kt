@@ -10,11 +10,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.setu.swimspot.R
 import ie.setu.swimspot.adapters.SwimspotAdapter
+import ie.setu.swimspot.adapters.SwimspotListener
 import ie.setu.swimspot.databinding.ActivitySwimspotListBinding
 import ie.setu.swimspot.main.MainApp
+import ie.setu.swimspot.models.SwimspotModel
 
 
-class SwimspotListActivity : AppCompatActivity() {
+class SwimspotListActivity : AppCompatActivity(), SwimspotListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivitySwimspotListBinding
@@ -30,7 +32,8 @@ class SwimspotListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = SwimspotAdapter(app.swimspots)
+        // binding.recyclerView.adapter = SwimspotAdapter(app.swimspots)
+        binding.recyclerView.adapter = SwimspotAdapter(app.swimspots.findAll(),this)
 
     }
 
@@ -55,7 +58,23 @@ class SwimspotListActivity : AppCompatActivity() {
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 (binding.recyclerView.adapter)?.
-                notifyItemRangeChanged(0,app.swimspots.size)
+                notifyItemRangeChanged(0,app.swimspots.findAll().size)
+            }
+        }
+
+    override fun onSwimspotClick(swimspot: SwimspotModel) {
+        val launcherIntent = Intent(this, SwimspotActivity::class.java)
+        launcherIntent.putExtra("swimspot_edit", swimspot)
+        getClickResult.launch(launcherIntent)
+    }
+
+    private val getClickResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                (binding.recyclerView.adapter)?.
+                notifyItemRangeChanged(0,app.swimspots.findAll().size)
             }
         }
 }

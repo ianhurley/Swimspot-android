@@ -21,6 +21,7 @@ class SwimspotActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var edit = false
         binding = ActivitySwimspotBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -30,22 +31,31 @@ class SwimspotActivity : AppCompatActivity() {
         app = application as MainApp
         i("Swimspot Activity started...")
 
+        if (intent.hasExtra("swimspot_edit")) {
+            edit = true
+            swimspot = intent.extras?.getParcelable("swimspot_edit")!!
+            binding.name.setText(swimspot.name)
+            binding.county.setText(swimspot.county)
+            binding.categorey.setText(swimspot.categorey)
+            binding.btnAdd.setText(R.string.save_swimspot)
+        }
+
         binding.btnAdd.setOnClickListener() {
             swimspot.name = binding.name.text.toString()
             swimspot.county = binding.county.text.toString()
             swimspot.categorey = binding.categorey.text.toString()
-            if (swimspot.name.isNotEmpty()) {
-                app.swimspots.add(swimspot.copy())
-                i("add Button Pressed: ${swimspot}")
-                for (i in app.swimspots.indices)
-                { i("Swimspot[$i]:${app.swimspots[i]}") }
-                setResult(RESULT_OK)
-                finish()
-            }
-            else {
-                Snackbar.make(it,"Please Enter a Name", Snackbar.LENGTH_LONG)
+            if (swimspot.name.isEmpty()) {
+                Snackbar.make(it,R.string.enter_swimspot_name, Snackbar.LENGTH_LONG)
                     .show()
+            } else {
+                if (edit) {
+                    app.swimspots.update(swimspot.copy())
+                } else {
+                    app.swimspots.create(swimspot.copy())
+                }
             }
+            setResult(RESULT_OK)
+            finish()
         }
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import ie.setu.swimspot.databinding.CardSwimspotBinding
 import ie.setu.swimspot.models.SwimspotModel
 
+interface SwimspotListener {
+    fun onSwimspotClick(swimspot: SwimspotModel)
+}
 
-class SwimspotAdapter constructor(private var swimspots: List<SwimspotModel>) :
+class SwimspotAdapter constructor(private var swimspots: List<SwimspotModel>, private val listener: SwimspotListener) :
     RecyclerView.Adapter<SwimspotAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
@@ -19,7 +22,7 @@ class SwimspotAdapter constructor(private var swimspots: List<SwimspotModel>) :
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val swimspot = swimspots[holder.adapterPosition]
-        holder.bind(swimspot)
+        holder.bind(swimspot, listener)
     }
 
     override fun getItemCount(): Int = swimspots.size
@@ -27,10 +30,11 @@ class SwimspotAdapter constructor(private var swimspots: List<SwimspotModel>) :
     class MainHolder(private val binding : CardSwimspotBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(swimspot: SwimspotModel) {
+        fun bind(swimspot: SwimspotModel, listener: SwimspotListener) {
             binding.name.text = swimspot.name
             binding.county.text = swimspot.county
             binding.categorey.text = swimspot.categorey
+            binding.root.setOnClickListener { listener.onSwimspotClick(swimspot)}
         }
     }
 

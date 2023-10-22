@@ -3,6 +3,7 @@ package ie.setu.swimspot.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import ie.setu.swimspot.databinding.CardSwimspotBinding
 import ie.setu.swimspot.models.SwimspotModel
 
@@ -34,6 +35,7 @@ class SwimspotAdapter constructor(private var swimspots: List<SwimspotModel>, pr
             binding.name.text = swimspot.name
             binding.county.text = swimspot.county
             binding.categorey.text = swimspot.categorey
+            Picasso.get().load(swimspot.photo).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onSwimspotClick(swimspot)}
         }
     }

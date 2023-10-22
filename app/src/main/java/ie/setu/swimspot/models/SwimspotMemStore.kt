@@ -28,6 +28,7 @@ class SwimspotMemStore : SwimspotStore {
             foundSwimspot.name = swimspot.name
             foundSwimspot.county = swimspot.county
             foundSwimspot.categorey = swimspot.categorey
+            foundSwimspot.photo = swimspot.photo
             logAll()
         }
     }

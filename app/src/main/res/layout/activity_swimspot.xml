@@ -79,6 +79,25 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
+                <ImageView
+                    android:id="@+id/swimspotPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@mipmap/ic_launcher"/>
+
+                <Button
+                    android:id="@+id/choosePhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/custom_button_alt"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/button_addPhoto"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="16sp"/>
+
+
                 <Button
                     android:id="@+id/btnAdd"
                     android:layout_width="match_parent"

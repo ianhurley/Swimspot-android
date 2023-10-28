@@ -36,6 +36,10 @@ class SwimspotMemStore : SwimspotStore {
         }
     }
 
+    override fun delete(swimspot: SwimspotModel) {
+        swimspots.remove(swimspot)
+    }
+
     fun logAll() {
         swimspots.forEach{ i("${it}") }
     }

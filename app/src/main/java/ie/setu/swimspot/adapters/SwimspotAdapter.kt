@@ -8,7 +8,7 @@ import ie.setu.swimspot.databinding.CardSwimspotBinding
 import ie.setu.swimspot.models.SwimspotModel
 
 interface SwimspotListener {
-    fun onSwimspotClick(swimspot: SwimspotModel)
+    fun onSwimspotClick(swimspot: SwimspotModel, position : Int)
 }
 
 class SwimspotAdapter constructor(private var swimspots: List<SwimspotModel>, private val listener: SwimspotListener) :
@@ -36,7 +36,7 @@ class SwimspotAdapter constructor(private var swimspots: List<SwimspotModel>, pr
             binding.county.text = swimspot.county
             binding.categorey.text = swimspot.categorey
             Picasso.get().load(swimspot.photo).resize(200,200).into(binding.imageIcon)
-            binding.root.setOnClickListener { listener.onSwimspotClick(swimspot)}
+            binding.root.setOnClickListener { listener.onSwimspotClick(swimspot,adapterPosition)}
         }
     }
 

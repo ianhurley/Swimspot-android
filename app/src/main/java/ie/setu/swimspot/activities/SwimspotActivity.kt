@@ -27,18 +27,17 @@ class SwimspotActivity : AppCompatActivity() {
     lateinit var app: MainApp
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
-    // var location = Location(52.245696, -7.139102, 15f)
+    var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var edit = false
+        edit = false
+
         binding = ActivitySwimspotBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
-
-
 
         app = application as MainApp
         i("Swimspot Activity started...")
@@ -72,12 +71,14 @@ class SwimspotActivity : AppCompatActivity() {
                     app.swimspots.create(swimspot.copy())
                 }
             }
+            i("add Button Pressed: $swimspot")
+
             setResult(RESULT_OK)
             finish()
         }
 
         binding.choosePhoto.setOnClickListener {
-            showImagePicker(imageIntentLauncher)
+            showImagePicker(imageIntentLauncher, this)
             i("add photo")
         }
 
@@ -98,11 +99,17 @@ class SwimspotActivity : AppCompatActivity() {
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_swimspot, menu)
+        if (edit) menu.getItem(0).isVisible = true
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.item_delete -> {
+                setResult(99)
+                app.swimspots.delete(swimspot)
+                finish()
+            }
             R.id.item_cancel -> {
                 finish()
             }
@@ -118,7 +125,12 @@ class SwimspotActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
-                            swimspot.photo = result.data!!.data!!
+
+                            val image = result.data!!.data!!
+                            contentResolver.takePersistableUriPermission(image,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            swimspot.photo = image
+
                             Picasso.get()
                                 .load(swimspot.photo)
                                 .into(binding.swimspotPhoto)

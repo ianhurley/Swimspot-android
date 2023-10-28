@@ -20,6 +20,7 @@ class SwimspotListActivity : AppCompatActivity(), SwimspotListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivitySwimspotListBinding
+    private var position: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +33,6 @@ class SwimspotListActivity : AppCompatActivity(), SwimspotListener {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        // binding.recyclerView.adapter = SwimspotAdapter(app.swimspots)
         binding.recyclerView.adapter = SwimspotAdapter(app.swimspots.findAll(),this)
 
     }
@@ -62,9 +62,10 @@ class SwimspotListActivity : AppCompatActivity(), SwimspotListener {
             }
         }
 
-    override fun onSwimspotClick(swimspot: SwimspotModel) {
+    override fun onSwimspotClick(swimspot: SwimspotModel, pos : Int) {
         val launcherIntent = Intent(this, SwimspotActivity::class.java)
         launcherIntent.putExtra("swimspot_edit", swimspot)
+        position = pos
         getClickResult.launch(launcherIntent)
     }
 
@@ -76,5 +77,7 @@ class SwimspotListActivity : AppCompatActivity(), SwimspotListener {
                 (binding.recyclerView.adapter)?.
                 notifyItemRangeChanged(0,app.swimspots.findAll().size)
             }
+            else // Deleting
+                if (it.resultCode == 99)     (binding.recyclerView.adapter)?.notifyItemRemoved(position)
         }
 }

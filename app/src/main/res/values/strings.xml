@@ -13,5 +13,6 @@
     <string name="change_swimspot_photo">Change Swimspot Photo</string>
     <string name="button_location">Set Location</string>
     <string name="title_activity_map">MapActivity</string>
+    <string name="menu_deleteSwimspot">Delete</string>
 
 </resources>

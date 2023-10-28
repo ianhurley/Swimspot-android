@@ -11,5 +11,7 @@
     <string name="button_addPhoto"> Add Photo </string>
     <string name="select_swimspot_photo">Select Swimspot Photo</string>
     <string name="change_swimspot_photo">Change Swimspot Photo</string>
+    <string name="button_location">Set Location</string>
+    <string name="title_activity_map">MapActivity</string>
 
 </resources>

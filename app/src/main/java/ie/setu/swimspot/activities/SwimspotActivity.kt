@@ -14,6 +14,7 @@ import ie.setu.swimspot.R
 import ie.setu.swimspot.databinding.ActivitySwimspotBinding
 import ie.setu.swimspot.helpers.showImagePicker
 import ie.setu.swimspot.main.MainApp
+import ie.setu.swimspot.models.Location
 import ie.setu.swimspot.models.SwimspotModel
 import timber.log.Timber
 import timber.log.Timber.Forest.i
@@ -25,7 +26,8 @@ class SwimspotActivity : AppCompatActivity() {
     var swimspot = SwimspotModel()
     lateinit var app: MainApp
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
-    val IMAGE_REQUEST = 1
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    // var location = Location(52.245696, -7.139102, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +81,20 @@ class SwimspotActivity : AppCompatActivity() {
             i("add photo")
         }
 
+        binding.swimspotLocation.setOnClickListener {
+            val location = Location(52.245696, -7.139102, 15f)
+            if (swimspot.zoom != 0f) {
+                location.lat =  swimspot.lat
+                location.lng = swimspot.lng
+                location.zoom = swimspot.zoom
+            }
+            val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
+            mapIntentLauncher.launch(launcherIntent)
+        }
+
         registerImagePickerCallback()
+        registerMapCallback()
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_swimspot, menu)
@@ -108,6 +123,26 @@ class SwimspotActivity : AppCompatActivity() {
                                 .load(swimspot.photo)
                                 .into(binding.swimspotPhoto)
                             binding.choosePhoto.setText(R.string.change_swimspot_photo)
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
+    }
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Location ${result.data.toString()}")
+                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
+                            i("Location == $location")
+                            swimspot.lat = location.lat
+                            swimspot.lng = location.lng
+                            swimspot.zoom = location.zoom
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }

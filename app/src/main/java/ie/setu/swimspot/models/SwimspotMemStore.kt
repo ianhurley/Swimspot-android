@@ -29,6 +29,9 @@ class SwimspotMemStore : SwimspotStore {
             foundSwimspot.county = swimspot.county
             foundSwimspot.categorey = swimspot.categorey
             foundSwimspot.photo = swimspot.photo
+            foundSwimspot.lat = swimspot.lat
+            foundSwimspot.lng = swimspot.lng
+            foundSwimspot.zoom = swimspot.zoom
             logAll()
         }
     }

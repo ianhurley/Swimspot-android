@@ -40,6 +40,11 @@ class SwimspotMemStore : SwimspotStore {
         swimspots.remove(swimspot)
     }
 
+    override fun findById(id:Long) : SwimspotModel? {
+        val foundSwimspot: SwimspotModel? = swimspots.find { it.id == id }
+        return foundSwimspot
+    }
+
     fun logAll() {
         swimspots.forEach{ i("${it}") }
     }

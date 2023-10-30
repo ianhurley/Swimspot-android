@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.setu.swimspot.R
 import ie.setu.swimspot.adapters.SwimspotAdapter
@@ -24,6 +25,8 @@ class SwimspotListActivity : AppCompatActivity(), SwimspotListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Thread.sleep(3000)
+        installSplashScreen()
         binding = ActivitySwimspotListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbar.title = title
@@ -47,6 +50,10 @@ class SwimspotListActivity : AppCompatActivity(), SwimspotListener {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, SwimspotActivity::class.java)
                 getResult.launch(launcherIntent)
+            }
+            R.id.item_map -> {
+                val launcherIntent = Intent(this, SwimspotMapsActivity::class.java)
+                mapIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -80,4 +87,9 @@ class SwimspotListActivity : AppCompatActivity(), SwimspotListener {
             else // Deleting
                 if (it.resultCode == 99)     (binding.recyclerView.adapter)?.notifyItemRemoved(position)
         }
+
+    private val mapIntentLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        )    { }
 }

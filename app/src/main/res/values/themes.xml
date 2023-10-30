@@ -10,17 +10,11 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
     </style>
-
-    <style name="SplashScreenTheme" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/colorAccent</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-    </style>
-
     <style name="Theme.Swimspot" parent="Base.Theme.Swimspot" />
+    
+    <style name="Theme.App.Splashscreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/colorAccent</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/baseline_water_24</item>
+        <item name="postSplashScreenTheme">@style/Base.Theme.Swimspot</item>
+    </style>
 </resources>

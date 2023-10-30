@@ -74,6 +74,11 @@ class SwimspotJSONStore(private val context: Context) : SwimspotStore {
     private fun logAll() {
         swimspots.forEach { Timber.i("$it") }
     }
+
+    override fun findById(id:Long) : SwimspotModel? {
+        val foundSwimspot: SwimspotModel? = swimspots.find { it.id == id }
+        return foundSwimspot
+    }
 }
 
 class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
@@ -92,4 +97,5 @@ class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
     ): JsonElement {
         return JsonPrimitive(src.toString())
     }
+
 }

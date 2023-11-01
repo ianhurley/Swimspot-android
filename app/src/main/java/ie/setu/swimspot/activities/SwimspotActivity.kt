@@ -61,20 +61,25 @@ class SwimspotActivity : AppCompatActivity() {
             swimspot.name = binding.name.text.toString()
             swimspot.county = binding.county.text.toString()
             swimspot.categorey = binding.categorey.text.toString()
-            if (swimspot.name.isEmpty()) {
-                Snackbar.make(it,R.string.enter_swimspot_name, Snackbar.LENGTH_LONG)
-                    .show()
+
+            val inputMaxLength = 20 //to fit input panel
+
+            if (swimspot.name.isEmpty() || swimspot.county.isEmpty() || swimspot.categorey.isEmpty()) {
+                Snackbar.make(it, R.string.enter_swimspot_details, Snackbar.LENGTH_LONG).show()
+            }else if (swimspot.name.length > inputMaxLength || swimspot.county.length > inputMaxLength || swimspot.categorey.length > inputMaxLength) {
+                Snackbar.make(it, R.string.input_length_exceeded, Snackbar.LENGTH_LONG).show()
+            }else if (!swimspot.name.matches(Regex("^[a-zA-Z ]*\$")) || !swimspot.county.matches(Regex("^[a-zA-Z ]*\$")) || !swimspot.categorey.matches(Regex("^[a-zA-Z ]*\$"))) {
+                Snackbar.make(it, R.string.text_input_only, Snackbar.LENGTH_LONG).show()
             } else {
                 if (edit) {
                     app.swimspots.update(swimspot.copy())
                 } else {
                     app.swimspots.create(swimspot.copy())
                 }
+                i("add Button Pressed: $swimspot")
+                setResult(RESULT_OK)
+                finish()
             }
-            i("add Button Pressed: $swimspot")
-
-            setResult(RESULT_OK)
-            finish()
         }
 
         binding.choosePhoto.setOnClickListener {
@@ -83,7 +88,7 @@ class SwimspotActivity : AppCompatActivity() {
         }
 
         binding.swimspotLocation.setOnClickListener {
-            val location = Location(52.245696, -7.139102, 15f)
+            val location = Location(53.4494762, -7.5029786, 6f)
             if (swimspot.zoom != 0f) {
                 location.lat =  swimspot.lat
                 location.lng = swimspot.lng

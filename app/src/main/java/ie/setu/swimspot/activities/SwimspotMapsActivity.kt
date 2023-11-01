@@ -81,6 +81,7 @@ class SwimspotMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListene
         val tag = marker.tag as Long
         val swimspot = app.swimspots.findById(tag)
         contentBinding.currentName.text = swimspot!!.name
+        contentBinding.currentCounty.text = swimspot.county
         contentBinding.currentCategorey.text = swimspot.categorey
         Picasso.get().load(swimspot.photo).into(contentBinding.currentPhoto)
         return false

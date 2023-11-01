@@ -2,13 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_height="144dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,51 +23,60 @@
 
             <ImageView
                 android:id="@+id/currentPhoto"
-                android:layout_width="127dp"
-                android:layout_height="110dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.529"
-                app:srcCompat="@mipmap/ic_launcher" />
+                app:srcCompat="@drawable/baseline_water_24_blue" />
 
             <TextView
                 android:id="@+id/currentName"
-                android:layout_width="145dp"
+                android:layout_width="252dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="32dp"
-                android:text="TextView"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/currentPhoto"
+                android:layout_marginStart="16dp"
+                android:text="name"
+                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/currentPhoto" />
+
+            <TextView
+                android:id="@+id/currentCounty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:text="county"
+                app:layout_constraintStart_toStartOf="@+id/currentName"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="County" />
 
             <TextView
                 android:id="@+id/currentCategorey"
-                android:layout_width="145dp"
-                android:layout_height="30dp"
-                android:text="TextView"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/currentPhoto"
-                app:layout_constraintHorizontal_bias="0.494"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/currentName"
-                app:layout_constraintVertical_bias="0.17" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_button"
+                android:text="categorey"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/currentPhoto"
+                app:layout_constraintStart_toStartOf="@+id/currentName" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
-        android:layout_width="378dp"
-        android:layout_height="537dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
@@ -29,6 +30,8 @@ class SwimspotActivity : AppCompatActivity() {
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
     var edit = false
 
+    private val categories = arrayOf("Lake","Pool","River","Sea","Waterfall")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,7 +50,12 @@ class SwimspotActivity : AppCompatActivity() {
             swimspot = intent.extras?.getParcelable("swimspot_edit")!!
             binding.name.setText(swimspot.name)
             binding.county.setText(swimspot.county)
-            binding.categorey.setText(swimspot.categorey)
+
+            val categoreyPosition = categories.indexOf(swimspot.categorey)
+            if (categoreyPosition >= 0) {
+                binding.categoreySpinner.setSelection(categoreyPosition)
+            }
+
             binding.btnAdd.setText(R.string.save_swimspot)
             Picasso.get()
                 .load(swimspot.photo)
@@ -57,10 +65,16 @@ class SwimspotActivity : AppCompatActivity() {
             }
         }
 
+        val categoreySpinner = binding.categoreySpinner
+        val categoreyAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories)
+        categoreyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        categoreySpinner.adapter = categoreyAdapter
+
         binding.btnAdd.setOnClickListener() {
             swimspot.name = binding.name.text.toString()
             swimspot.county = binding.county.text.toString()
-            swimspot.categorey = binding.categorey.text.toString()
+
+            swimspot.categorey = categories[binding.categoreySpinner.selectedItemPosition]
 
             val inputMaxLength = 20 //to fit input panel
 

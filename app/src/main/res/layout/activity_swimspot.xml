@@ -63,14 +63,14 @@
             android:background="@drawable/custom_button_alt"
             android:ems="10"
             android:hint="@string/hint_swimspotCounty"
-            android:inputType="textPersonName"
+            android:inputType="text"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
-        <EditText
-            android:id="@+id/categorey"
+        <Spinner
+            android:id="@+id/categoreySpinner"
             android:layout_width="365dp"
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
@@ -79,7 +79,7 @@
             android:background="@drawable/custom_button_alt"
             android:ems="10"
             android:hint="@string/hint_swimspotCategorey"
-            android:inputType="textPersonName"
+            android:inputType="text"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +107,7 @@
             android:text="@string/button_addPhoto"
             android:textColor="@color/colorAccent"
             app:layout_constraintStart_toStartOf="@+id/btnAdd"
-            app:layout_constraintTop_toBottomOf="@+id/categorey" />
+            app:layout_constraintTop_toBottomOf="@+id/categoreySpinner" />
 
         <Button
             android:id="@+id/swimspotLocation"
@@ -118,10 +118,10 @@
             android:background="@drawable/custom_button_alt"
             android:text="@string/button_location"
             android:textColor="@color/colorAccent"
-            app:layout_constraintEnd_toEndOf="@+id/categorey"
+            app:layout_constraintEnd_toEndOf="@+id/categoreySpinner"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/choosePhoto"
-            app:layout_constraintTop_toBottomOf="@+id/categorey" />
+            app:layout_constraintTop_toBottomOf="@+id/categoreySpinner" />
 
         <ImageView
             android:id="@+id/swimspotPhoto"
